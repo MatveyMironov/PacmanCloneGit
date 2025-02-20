@@ -1,5 +1,4 @@
-﻿using MovementSystem;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,15 +19,15 @@ namespace LevelSystem
             _passagesRoot = passagesRoot != null ? passagesRoot : throw new ArgumentNullException(nameof(passagesRoot));
         }
 
-        public void CreateLevel(MovementField movementField)
+        public void CreateLevel(LevelMapSO levelMap)
         {
             DestroyLevel();
 
-            foreach (var cell in movementField.MovementCells)
+            foreach (var position in levelMap.PassagesPositions)
             {
                 GameObject passage = UnityEngine.Object.Instantiate(_passagePrefab, _passagesRoot);
 
-                Vector3Int cellPosition = new(cell.x, cell.y, 0);
+                Vector3Int cellPosition = new(position.x, position.y, 0);
                 passage.transform.position = _grid.CellToWorld(cellPosition);
             }
         }
